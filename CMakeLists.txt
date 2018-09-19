@@ -275,3 +275,7 @@ add_custom_target(distclean
 	COMMAND -find . '\(' -name CMakeFiles -o -name cmake_install.cmake -o -name Makefile '\)' -exec rm -rf {} '\;'
 	COMMAND rm -rf build/*
 )
+
+if (CMAKE_COMPILER_IS_GNUCXX)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+endif()

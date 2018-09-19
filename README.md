@@ -1,3 +1,5 @@
+A quick attempt at porting simplex's ktools to ImageMagick 7.
+
 # ktools
 
 A set of cross-platform modding tools for the game [Don't Starve](http://www.dontstarvegame.com/), by [Klei Entertainment](http://kleientertainment.com/).

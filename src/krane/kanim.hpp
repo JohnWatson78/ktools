@@ -342,7 +342,7 @@ namespace Krane {
 			iterator match = find(fullname);
 			if(match != end()) {
 				std::string msg = "Duplicate anim '" + match->first + "' in bank '" + name + "'" ;
-				throw KToolsError(msg);
+				//throw KToolsError(msg);
 				/*
 				std::cerr << "Warning: " << msg << std::endl;
 				delete match->second;
