@@ -343,35 +343,31 @@ namespace ImOp {
 	class premultiplyPixelAlpha : public pixel_operation_t {
 	public:
 		virtual void call(MagickCore::Quantum* p) const {
-			/*
 			using namespace Magick;
 
-			double a = 1 - double(p->opacity)/QuantumRange;
+			double a = double(p[3])/QuantumRange;
 			if(a <= 0.1) a = 0;
 			else if(a >= 1) a = 1;
 
-			p->red = multiplyQuantum(p->red, a);
-			p->green = multiplyQuantum(p->green, a);
-			p->blue = multiplyQuantum(p->blue, a);
-			//*/ 
+			p[0] = multiplyQuantum(p[0], a);
+			p[1] = multiplyQuantum(p[1], a);
+			p[2] = multiplyQuantum(p[2], a);
 		}
 	};
 
 	class demultiplyPixelAlpha : public pixel_operation_t {
 	public:
 		virtual void call(MagickCore::Quantum* p) const {
-			/*
 			using namespace Magick;
 
-			const double a = 1 - double(p->opacity)/QuantumRange;
+			const double a = double(p[3])/QuantumRange;
 			if(a <= 0 || a >= 1) return;
 
 			const double inva = 1/a;
 
-			p->red = multiplyQuantum(p->red, inva);
-			p->green = multiplyQuantum(p->green, inva);
-			p->blue = multiplyQuantum(p->blue, inva);
-			//*/ 
+			p[0] = multiplyQuantum(p[0], inva);
+			p[1] = multiplyQuantum(p[1], inva);
+			p[2] = multiplyQuantum(p[2], inva);
 		}
 	};
 
@@ -392,7 +388,8 @@ namespace ImOp {
 
 				for(size_t i = 0; i < h; i++) {
 					for(size_t j = 0; j < w; j++) {
-						op(p++);
+						op(p);
+						p += 4;
 					}
 				}
 			}
@@ -400,15 +397,6 @@ namespace ImOp {
 			view.sync();
 		}
 	};
-
-	/*
-	void highlevel_premultiply(Magick::Image& img) const {
-		Magick::Image old = img;
-		img = Magick::Image(old.size(), "black");
-		img.composite(old, 0, 0, Magick::OverCompositeOp);
-		img.composite(old, 0, 0, Magick::CopyOpacityCompositeOp);
-	}
-	*/
 
 	class premultiplyAlpha : public pixelMap<premultiplyPixelAlpha> {};
 
